@@ -1,0 +1,68 @@
+{
+	"lstm1": {
+		"init": {
+			"func": "lstm",
+			"kwargs": {
+				"units": 128,
+				"go_backwards": true
+			}
+		},
+		"call": {
+			"func": "lstm1",
+			"kwargs": {
+				"inputs": "inputs"
+			}
+		}
+	},
+	
+	"dense1": {
+		"init": {
+			"func": "dense",
+			"kwargs": {
+				"units": 128,
+				"activation": "relu"
+			}
+		},
+		"call": {
+			"func": "dense1",
+			"kwargs": {
+				"inputs": "lstm1"
+			}
+		}
+	},
+	
+	"dense2": {
+		"init": {
+			"func": "dense",
+			"kwargs": {
+				"units": "lib_size",
+				"activation": "softmax"
+			}
+		},
+		"call": {
+			"func": "dense2",
+			"kwargs": {
+				"inputs": "dense1"
+			}
+		}
+	},
+	
+	"outputs": "dense2",
+	
+	"optimizer": {
+		"init": {
+			"func": "adam"
+		}
+	},
+	
+	"compile_args": {
+		"optimizer": "optimizer",
+		"loss": {
+			"output_1": "cross_entropy"
+		},
+		"metrics": {
+			"output_1": "accuracy"
+		}
+	}
+	
+}
